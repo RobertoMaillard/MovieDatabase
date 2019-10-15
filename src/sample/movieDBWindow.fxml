@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TextField?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            stylesheets="@movieDatabaseStylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="sample.MovieDBController">
+    <top>
+        <VBox>
+            <HBox fx:id="topHBox" prefHeight="56.0" styleClass="top-hbox">
+                <Pane prefWidth="35"/>
+                <Label text="Movie DB" prefHeight="56.0" alignment="BOTTOM_LEFT" styleClass="top-hbox-label">
+                    <font>
+                        <Font size="45.0"/>
+                    </font>
+                </Label>
+                <Pane prefWidth="23"/>
+                <Label fx:id="topLabelMovieCount" prefHeight="48.0" alignment="BOTTOM_LEFT" styleClass="top-hbox-label" >
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <padding>
+                        <Insets left="10"/>
+                    </padding>
+                </Label>
+                <Label fx:id="topLabelRaterCount" prefHeight="48.0" alignment="BOTTOM_LEFT" styleClass="top-hbox-label">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <padding>
+                        <Insets left="10"/>
+                    </padding>
+                </Label>
+                <Label fx:id="topLabelRatingCount" prefHeight="48.0"  alignment="BOTTOM_LEFT" styleClass="top-hbox-label">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <padding>
+                        <Insets left="10"/>
+                    </padding>
+                </Label>
+                <Pane prefWidth="35"/>
+            </HBox>
+            <Pane prefHeight="35.0" styleClass="top-bottom-pane"/>
+        </VBox>
+    </top>
+    <left>
+        <HBox>
+            <Pane prefWidth="35" styleClass="box"/>
+            <VBox id="leftVBox" fx:id="leftVBox" maxHeight="630" minWidth="200.0" styleClass="box">
+                <AnchorPane>
+                    <Pane styleClass="left-anchor-pane-pane" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+                          prefHeight="630" prefWidth="${leftVBox.width}"/>
+                    <TextField fx:id="searchField" onKeyTyped="#onKeyTypedSearchFieldFilter"
+                               AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+                               prefHeight="25" prefWidth="${leftVBox.width}"
+                               promptText="Search title..." focusTraversable="false"/>
+                    <Accordion id="accordion" fx:id="accordion" AnchorPane.topAnchor="35" AnchorPane.leftAnchor="0"
+                               prefHeight="595" prefWidth="${leftVBox.width}">
+                        <panes>
+                            <TitledPane fx:id="genreTitledPane" onMouseClicked="#resetFilter"
+                                        alignment="CENTER_RIGHT" prefWidth="${accordion.width}" text="G E N R E">
+                                <content>
+                                    <ListView fx:id="genreListView" prefHeight="500.0" prefWidth="${genreTitledPane.width}"
+                                              onMouseClicked="#filterGenre"/>
+                                </content>
+                            </TitledPane>
+                            <TitledPane fx:id="directorTitledPane" onMouseClicked="#resetFilter"
+                                        alignment="CENTER_RIGHT" prefWidth="${accordion.width}" text="D I R E C T O R">
+                                <content>
+                                    <ListView fx:id="directorListView" prefHeight="500.0" prefWidth="${directorTitledPane.width}"
+                                              onMouseClicked="#filterDirector"/>
+                                </content>
+                            </TitledPane>
+                            <TitledPane fx:id="yearTitledPane" onMouseClicked="#resetFilter"
+                                        alignment="CENTER_RIGHT" prefWidth="${accordion.width}" text="Y E A R">
+                                <content>
+                                    <ListView fx:id="yearListView" prefHeight="500.0" prefWidth="${yearTitledPane.width}"
+                                              onMouseClicked="#filterYear"/>
+                                </content>
+                            </TitledPane>
+                            <TitledPane fx:id="countryTitledPane" onMouseClicked="#resetFilter"
+                                        alignment="CENTER_RIGHT" prefWidth="${accordion.width}" text="C O U N T R Y">
+                                <content>
+                                    <ListView fx:id="countryListView" prefHeight="500.0" prefWidth="${countryTitledPane.width}"
+                                              onMouseClicked="#filterCountry"/>
+                                </content>
+                            </TitledPane>
+                        </panes>
+                        <BorderPane.margin>
+                            <Insets />
+                        </BorderPane.margin>
+                    </Accordion>
+                </AnchorPane>
+                <Pane minHeight="35.0" styleClass="box" />
+            </VBox>
+            <Pane prefWidth="35.0" styleClass="box" />
+        </HBox>
+    </left>
+    <center>
+        <VBox styleClass="box">
+            <AnchorPane  styleClass="box">
+                <Pane AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" prefWidth="200" prefHeight="296"/>
+                <Label AnchorPane.leftAnchor="50" AnchorPane.topAnchor="50" text="404 not found">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+                <ImageView fx:id="imageView" fitHeight="296" fitWidth="200" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0"/>
+                <Pane AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" prefWidth="200" prefHeight="296" styleClass="imagePane"/>
+                <Label fx:id="anchorTitle" AnchorPane.leftAnchor="225" AnchorPane.topAnchor="0"
+                       prefHeight="50.0" prefWidth="650" textFill="WHITE">
+                    <font>
+                        <Font size="35.0" />
+                    </font>
+                </Label>
+                <Label fx:id="anchorRating" AnchorPane.leftAnchor="225" AnchorPane.topAnchor="55"
+                       prefHeight="30.0" prefWidth="300" text="8.6/45" textFill="WHITE">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="anchorYear" AnchorPane.leftAnchor="225" AnchorPane.topAnchor="90"
+                       prefHeight="30.0" prefWidth="300" textFill="WHITE">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Label>
+                <Label fx:id="anchorGenre" AnchorPane.leftAnchor="225" AnchorPane.topAnchor="125"
+                       prefHeight="30.0" prefWidth="300" textFill="WHITE">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Label>
+                <Label fx:id="anchorDirector" AnchorPane.leftAnchor="225" AnchorPane.topAnchor="160"
+                       prefHeight="30.0" prefWidth="300" textFill="WHITE">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Label>
+                <Label fx:id="anchorCountry" AnchorPane.leftAnchor="225" AnchorPane.topAnchor="195"
+                       prefHeight="30.0" prefWidth="300" textFill="WHITE">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Label>
+                <Label fx:id="anchorLength" AnchorPane.leftAnchor="225" AnchorPane.topAnchor="230"
+                       prefHeight="30.0" prefWidth="300" textFill="WHITE">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Label>
+                <!--  Upcoming Recommend feature.
+                <HBox AnchorPane.leftAnchor="225" AnchorPane.topAnchor="270">
+                    <Label fx:id="anchorYourRating"
+                            text="Your Rating:" textFill="WHITE">
+                        <font>
+                            <Font size="15.0" />
+                        </font>
+                        <padding>
+                            <Insets right="10"/>
+                        </padding>
+                    </Label>
+                    <fx:define>
+                        <ToggleGroup fx:id="toggleRatingGroup"/>
+                    </fx:define>
+                    <HBox>
+                        <RadioButton text="1" textFill="WHITE" toggleGroup="$toggleRatingGroup" prefWidth="45"/>
+                        <RadioButton text="2" textFill="WHITE" toggleGroup="$toggleRatingGroup" prefWidth="45"/>
+                        <RadioButton text="3" textFill="WHITE" toggleGroup="$toggleRatingGroup" prefWidth="45"/>
+                        <RadioButton text="4" textFill="WHITE" toggleGroup="$toggleRatingGroup" prefWidth="45"/>
+                        <RadioButton text="5" textFill="WHITE" toggleGroup="$toggleRatingGroup" prefWidth="45"/>
+                        <RadioButton text="6" textFill="WHITE" toggleGroup="$toggleRatingGroup" prefWidth="45"/>
+                        <RadioButton text="7" textFill="WHITE" toggleGroup="$toggleRatingGroup" prefWidth="45"/>
+                        <RadioButton text="8" textFill="WHITE" toggleGroup="$toggleRatingGroup" prefWidth="45"/>
+                        <RadioButton text="9" textFill="WHITE" toggleGroup="$toggleRatingGroup" prefWidth="45"/>
+                        <RadioButton text="10" textFill="WHITE" toggleGroup="$toggleRatingGroup" prefWidth="55"/>
+                        <Button text="Rate"/>
+                    </HBox>
+                </HBox>
+                -->
+            </AnchorPane>
+            <Label fx:id="movieQuantityCount" minHeight="35.0" alignment="CENTER_LEFT" textFill="WHITE"/>
+            <TableView maxHeight="299" fx:id="movieTableView" onMouseClicked="#displaySelectedItem">
+                <columns>
+                    <TableColumn prefWidth="260.0" text="Title">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="title" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="55.0" text="Rating">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="overallRating" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="55.0" text="Raters">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="raters"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="55.0" text="Year">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="year"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="195.0" text="Genre" >
+                        <cellValueFactory>
+                            <PropertyValueFactory property="genre"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="195.0" text="Director">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="director"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="140.0" text="Country">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="country"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+    <right>
+        <Pane prefWidth="35"/>
+    </right>
+    <bottom>
+    </bottom>
+</BorderPane>
